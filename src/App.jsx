@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const initialItems = [
   { id: 1, description: "Passports", quantity: 2, packed: false },
   { id: 2, description: "Socks", quantity: 12, packed: true },
@@ -20,16 +22,38 @@ function Logo() {
 }
 
 function Form() {
+  // 1. Set Use State
+  const [description, setDescription] = useState("");
+  const [quantity, setQuantity] = useState(1);
+
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(event);
+
+    if (!description) return;
+
+    const newItem = {
+      description,
+      quantity,
+      packed: false,
+      id: Date.now(),
+    };
+
+    console.log(newItem);
+
+    setDescription("");
+    setQuantity(1);
   }
 
   return (
     <form className="add-form" onSubmit={handleSubmit}>
       <h3>What Do you need for your 😍 trip?</h3>
 
-      <select name="" id="">
+      <select
+        // 2. Use Piece Of State
+        // 3. Update setState
+        value={quantity}
+        onChange={(event) => setQuantity(Number(event.target.value))}
+      >
         {Array.from({ length: 20 }, (_, index) => index + 1).map((num) => {
           return (
             <option value={num} key={num}>
@@ -39,7 +63,12 @@ function Form() {
         })}
       </select>
 
-      <input type="text" placeholder="Item..." />
+      <input
+        type="text"
+        placeholder="Item..."
+        value={description}
+        onChange={(event) => setDescription(event.target.value)}
+      />
 
       <button type="submit">Add</button>
     </form>
