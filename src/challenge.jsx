@@ -1,0 +1,60 @@
+import { useState } from "react";
+
+export default function Challenge() {
+  const [step, setStep] = useState(1);
+  const [count, setCount] = useState(step);
+
+  function handleDecrementCount() {
+    setCount((currentCount) => {
+      return (currentCount -= step);
+    });
+  }
+  function handleIncrementCount() {
+    setCount((currentCount) => {
+      return (currentCount += step);
+    });
+  }
+
+  const date = new Date("December 11 2025");
+  date.setDate(date.getDate() + count);
+
+  function handleReset() {
+    setCount(0);
+    setStep(1);
+  }
+
+  return (
+    <div className="challenge">
+      <span>This Is Challenge</span>
+      <div>
+        <input
+          type="range"
+          min={0}
+          max={10}
+          value={step}
+          onChange={(event) => setStep(Number(event.target.value))}
+        />
+        <span>{step}</span>
+      </div>
+      <div>
+        <button onClick={handleDecrementCount}>-</button>
+        <input
+          type="text"
+          value={count}
+          onChange={(event) => setCount(Number(event.target.value))}
+        />
+        <button onClick={handleIncrementCount}>+</button>
+      </div>
+      <p>
+        <span>
+          {count === 0 && `Today is `}
+          {count > 0 && `${count} days from Today is `}
+          {count < 0 && `${Math.abs(count)} days ago from Today is `}
+        </span>
+        <span>{date.toDateString()}</span>
+      </p>
+
+      {count > 0 && <button onClick={handleReset}>Reset</button>}
+    </div>
+  );
+}

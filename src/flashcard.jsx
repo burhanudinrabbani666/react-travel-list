@@ -37,7 +37,11 @@ const questions = [
 export default function FlashCards() {
   const [selectedID, setSelectedID] = useState(null);
 
-  function handleClick() {}
+  function handleClick(id) {
+    event.preventDefault();
+
+    setSelectedID(id !== selectedID ? id : null);
+  }
 
   return (
     <div className="flashcards">
@@ -46,7 +50,7 @@ export default function FlashCards() {
           <div
             key={question.id}
             className={question.id === selectedID ? "selected" : ""}
-            onClick={handleClick}
+            onClick={() => handleClick(question.id)}
           >
             <p>
               {question.id === selectedID ? question.answer : question.question}
