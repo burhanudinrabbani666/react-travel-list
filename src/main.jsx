@@ -2,13 +2,9 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
-import FlashCards from "./flashcard.jsx";
-import Challenge from "./challenge.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <App />
-    {/* <FlashCards /> */}
-    <Challenge />
   </StrictMode>
 );
