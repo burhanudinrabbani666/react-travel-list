@@ -11,11 +11,26 @@ export default function App() {
     console.log(id);
     setItems((items) => items.filter((item) => item.id !== id));
   }
+
+  function handleToogleItem(id) {
+    setItems((items) =>
+      items.map((item) =>
+        item.id === id
+          ? { ...item, packed: !item.packed } // still not mutating initial item
+          : item
+      )
+    );
+  }
+
   return (
     <div className="app">
       <Logo />
       <Form onAddItems={handleAddItem} />
-      <PackingList items={items} onDeleteItem={handleDeleteItem} />
+      <PackingList
+        items={items}
+        onDeleteItem={handleDeleteItem}
+        onToggleItem={handleToogleItem}
+      />
       <Stats />
     </div>
   );
@@ -78,22 +93,33 @@ function Form({ onAddItems }) {
   );
 }
 
-function PackingList({ items, onDeleteItem }) {
+function PackingList({ items, onDeleteItem, onToggleItem }) {
   return (
     <div className="list">
       <ul>
         {items.map((item) => {
-          return <Item item={item} key={item.id} onDeleteItem={onDeleteItem} />;
+          return (
+            <Item
+              item={item}
+              key={item.id}
+              onDeleteItem={onDeleteItem}
+              onToggleItem={onToggleItem}
+            />
+          );
         })}
       </ul>
     </div>
   );
 }
 
-function Item({ item, onDeleteItem }) {
+function Item({ item, onDeleteItem, onToggleItem }) {
   return (
     <li>
-      <input type="checkbox" value={item.packed} onChange={() => {}} />
+      <input
+        type="checkbox"
+        value={item.packed}
+        onChange={() => onToggleItem(item.id)}
+      />
       <span
         style={
           item.packed
