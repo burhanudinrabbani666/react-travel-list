@@ -1,11 +1,5 @@
 import { useState } from "react";
 
-// const initialItems = [
-//   { id: 1, description: "Passports", quantity: 2, packed: false },
-//   { id: 2, description: "Socks", quantity: 12, packed: true },
-//   { id: 3, description: "Charge", quantity: 1, packed: false },
-// ];
-
 export default function App() {
   const [items, setItems] = useState([]);
 
@@ -13,11 +7,15 @@ export default function App() {
     setItems((items) => [...items, item]);
   }
 
+  function handleDeleteItem(id) {
+    console.log(id);
+    setItems((items) => items.filter((item) => item.id !== id));
+  }
   return (
     <div className="app">
       <Logo />
       <Form onAddItems={handleAddItem} />
-      <PackingList items={items} />
+      <PackingList items={items} onDeleteItem={handleDeleteItem} />
       <Stats />
     </div>
   );
@@ -43,7 +41,6 @@ function Form({ onAddItems }) {
       packed: false,
       id: Date.now(),
     };
-    console.log(newItem);
     onAddItems(newItem);
 
     setDescription("");
@@ -81,21 +78,22 @@ function Form({ onAddItems }) {
   );
 }
 
-function PackingList({ items }) {
+function PackingList({ items, onDeleteItem }) {
   return (
     <div className="list">
       <ul>
         {items.map((item) => {
-          return <Item item={item} key={item.id} />;
+          return <Item item={item} key={item.id} onDeleteItem={onDeleteItem} />;
         })}
       </ul>
     </div>
   );
 }
 
-function Item({ item }) {
+function Item({ item, onDeleteItem }) {
   return (
     <li>
+      <input type="checkbox" value={item.packed} onChange={() => {}} />
       <span
         style={
           item.packed
@@ -105,7 +103,7 @@ function Item({ item }) {
       >
         {item.quantity} {item.description}
       </span>
-      <button>❎</button>
+      <button onClick={() => onDeleteItem(item.id)}>❎</button>
     </li>
   );
 }
