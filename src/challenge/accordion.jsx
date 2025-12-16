@@ -1,8 +1,3 @@
-## Exercise #1
-
-This exercise is to present a kind of FAQ
-
-```jsx
 import { useState } from "react";
 import "../index.css";
 
@@ -61,4 +56,3 @@ function AccordionItem({ num, title, text }) {
     </div>
   );
 }
-```
