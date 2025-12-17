@@ -62,3 +62,5 @@ function AccordionItem({ num, title, text }) {
   );
 }
 ```
+
+[Next: The Children Prop](./12-the-children-prop.md)

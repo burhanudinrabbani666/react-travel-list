@@ -18,3 +18,5 @@ State Management: Deciding when to create pieces of state, what types are necess
 ### State When and Where
 
 ![State](../../public/state-decision.drawio.svg)
+
+[Thinking About State and Lifting State](./03-thinking-about-state-and-lifting-state.md)
